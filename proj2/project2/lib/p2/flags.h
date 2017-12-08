@@ -1,2 +1,0 @@
-//#define PRINTANALRESULTS 1
-#define PRINTREMOVING 1
