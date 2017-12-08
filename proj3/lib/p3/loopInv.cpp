@@ -105,7 +105,6 @@ namespace {
         void gen_dom(void){
             while(!worklist.empty()){
                 BasicBlock* Y = worklist.front();
-//                std::cerr<<"Popping from worklist: "<<block_int[Y]<<"\n";
                 worklist.pop();
                 std::set <BasicBlock*> ndom;
                 ndom.empty();
@@ -118,23 +117,22 @@ namespace {
                     PI++;
                     while(PI != pred_end(Y)){
                         tempBB = *PI;
-//                        std::cerr<<"intersection: ";
                         for(std::set<BasicBlock*>::iterator k=intersection.begin();k!=intersection.end();k++){
-//                            std::cerr<<"    "<< (*k)->getName().str(); //block_int[*k];
+                            std::cerr<<"    "<< (*k)->getName().str(); //block_int[*k];
                         }
-//                        std::cerr<<"\n";
-//                        std::cerr<<"dom set: ";
+                        std::cerr<<"\n";
+                        std::cerr<<"dom set: ";
                         for(std::set<BasicBlock*>::iterator k=dom_set[tempBB].begin();k!=dom_set[tempBB].end();k++){
-//                            std::cerr<<"    "<< (*k)->getName().str(); //block_int[*k];
+                            std::cerr<<"    "<< (*k)->getName().str(); //block_int[*k];
                         }
-//                        std::cerr<<"\n";
+                        std::cerr<<"\n";
  
                         set_intersection(intersection.begin(),intersection.end(),dom_set[tempBB].begin(),dom_set[tempBB].end(),std::inserter(ndom,ndom.begin()));                      
-//                        std::cerr<<"ndom: ";
+                        std::cerr<<"ndom: ";
                         for(std::set<BasicBlock*>::iterator k=ndom.begin();k!=ndom.end();k++){
-//                            std::cerr<<"    "<< (*k)->getName().str(); //block_int[*k];
+                            std::cerr<<"    "<< (*k)->getName().str(); //block_int[*k];
                         }
-//                        std::cerr<<"\n";
+                        std::cerr<<"\n";
  
 
                         intersection = ndom;
@@ -144,11 +142,11 @@ namespace {
 
                 }
                 ndom.insert(Y);
-//                        std::cerr<<"Intersection of "<<block_int[Y]<<"  ";
+                        std::cerr<<"Intersection of "<<block_int[Y]<<"  ";
                         for(std::set<BasicBlock*>::iterator k=ndom.begin();k!=ndom.end();k++){
-//                            std::cerr<<"    "<< (*k)->getName().str(); //block_int[*k];
+                            std::cerr<<"    "<< (*k)->getName().str(); //block_int[*k];
                         }
-//                        std::cerr<<"\n";
+                        std::cerr<<"\n";
  
 
                 if(dom_set[Y] != ndom){
@@ -165,7 +163,7 @@ namespace {
 
         void map_function(Function &F){
             for(Function::iterator iter=F.begin();iter!=F.end();iter++){
-                // std::cerr<<"BLOCKS "<<(iter)->getName().str()<<"\n";
+                std::cerr<<"BLOCKS "<<(iter)->getName().str()<<"\n";
                 for(BasicBlock::iterator i=(*iter).begin();i!=(*iter).end();i++){
                     mapInst[i]=instId++;
                 }
@@ -177,12 +175,10 @@ namespace {
                 dfs_visited[root] = true;
                 for (succ_iterator PI = succ_begin(root), E = succ_end(root); PI != E; ++PI) {
                     BasicBlock *succ = *PI;
-                    //std::cerr<<(succ)->getName().str()<<"  ";                    
-
+                    std::cerr<<(succ)->getName().str()<<"  ";                    
                     //check if any of the successor dominates this basic block
                     if(dom_set[root].find(succ)!=dom_set[root].end()){
                         std::cerr<<"Backedge found: "<<root->getName().str()<<" and "<<succ->getName().str()<<"\n";
-                        
                         //check if header already exists
                         if(loop_map.find(succ)==loop_map.end()){
                             natural_loop loop_new(succ, root);                
@@ -210,9 +206,8 @@ namespace {
             for(std::map<BasicBlock*, natural_loop* >::iterator iter = loop_map.begin(), E = loop_map.end(); iter != E ; iter ++){
                 std::cerr<<"Value = "<<(iter->second)->size<<"\n";
                 (iter->second)->check();
-                //iterate through each N of the loop and store the maximum size    
-//                for(std::set<BasicBlock*>::iterator i = (loop_set[iter->first])->loop_body.begin(); i!= (loop_set[iter->first])->loop_body.end();i++){
-/*
+                iterate through each N of the loop and store the maximum size    
+                for(std::set<BasicBlock*>::iterator i = (loop_set[iter->first])->loop_body.begin(); i!= (loop_set[iter->first])->loop_body.end();i++){
                     int size = 0;
                     std::set <BasicBlock*> loop_body;
                     std::stack <BasicBlock*> temp_stack;
@@ -233,7 +228,7 @@ namespace {
 
                     }
                     std::cerr<<"Loop size = "<<size<<"\n";*/
-  //            }
+              }
 
             }
 
