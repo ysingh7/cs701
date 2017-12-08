@@ -227,7 +227,7 @@ namespace {
                         }
 
                     }
-                    std::cerr<<"Loop size = "<<size<<"\n";*/
+                    std::cerr<<"Loop size = "<<size<<"\n";
               }
 
             }
